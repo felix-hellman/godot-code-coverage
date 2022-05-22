@@ -1,0 +1,51 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node",
+"class": "CTC",
+"language": "GDScript",
+"path": "res://pkg/felix-hellman-codecoverage/test/CodeToCover.gd"
+}, {
+"base": "Node",
+"class": "LineFactory",
+"language": "GDScript",
+"path": "res://pkg/felix-hellman-codecoverage/src/LineFactory.gd"
+}, {
+"base": "Node",
+"class": "SourceLine",
+"language": "GDScript",
+"path": "res://pkg/felix-hellman-codecoverage/src/SourceLine.gd"
+}, {
+"base": "Node2D",
+"class": "SourceTree",
+"language": "GDScript",
+"path": "res://pkg/felix-hellman-codecoverage/src/SourceTree.gd"
+}, {
+"base": "Node",
+"class": "TestReportFactory",
+"language": "GDScript",
+"path": "res://pkg/felix-hellman-codecoverage/src/TestReportFactory.gd"
+} ]
+_global_script_class_icons={
+"CTC": "res://pkg/felix-hellman-codecoverage/test/CodeToCover.gd",
+"LineFactory": "res://pkg/felix-hellman-codecoverage/src/LineFactory.gd",
+"SourceLine": "res://pkg/felix-hellman-codecoverage/src/SourceLine.gd",
+"SourceTree": "res://pkg/felix-hellman-codecoverage/src/SourceTree.gd",
+"TestReportFactory": "res://pkg/felix-hellman-codecoverage/src/TestReportFactory.gd"
+}
+
+[application]
+
+config/name="CodeCoverage"
+
+[physics]
+
+common/enable_pause_aware_picking=true
