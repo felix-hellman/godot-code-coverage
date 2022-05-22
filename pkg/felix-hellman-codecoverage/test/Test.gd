@@ -1,7 +1,11 @@
 extends Node2D
 
+var factory : TestReportFactory = TestReportFactory.new()
+
 func _ready():
+	add_child(factory)
 	can_generate_report_test()
+	factory.on_complete()
 	
 func can_generate_report_test():
 	var expected_partially_covered_lines = [11]
@@ -9,8 +13,6 @@ func can_generate_report_test():
 	var expected_to_be_covered_after_resume = [19,20,21]
 	var to_cover = load("res://pkg/felix-hellman-codecoverage/test/CodeToCover.gd").new()
 	add_child(to_cover)
-	var factory : TestReportFactory = TestReportFactory.new()
-	add_child(factory)
 	factory.inject_object(to_cover)
 	var f = to_cover.t(true)
 	var report = factory.get_report()
