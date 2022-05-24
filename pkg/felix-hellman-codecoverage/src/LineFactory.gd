@@ -5,7 +5,7 @@ class_name LineFactory, "res://pkg/felix-hellman-codecoverage/src/LineFactory.gd
 var regex = RegEx.new()
 var func_regex = RegEx.new()
 
-var types = ["func", "if", "else", "yield", "return", "match", "for", "while"]
+var types = ["func", "if", "else", "yield", "return", "match", "for", "while", "empty"]
 
 func _ready():
 	regex.compile("^(?<indent>\t*)((?<type>(if|else|match|func|for|while)).*:)*.*$")
@@ -36,6 +36,8 @@ func evaluate_line_type(line, type) -> String:
 		return "match-pattern"
 	if "\tyield" in line:
 		return "yield"
+	if line.replace("\t", "") == "":
+		return "empty"
 	return "other"
 	
 func extract_function_name(line : SourceLine) -> String:

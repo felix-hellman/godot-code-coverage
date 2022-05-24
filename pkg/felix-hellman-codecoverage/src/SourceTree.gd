@@ -105,8 +105,9 @@ func find_root_blocks(lines):
 			var index = len(blocks)
 			blocks[index] = current_block
 			current_block["lines"].append(line)
-		if line.indent != 0:
+		if line.indent != 0 and not line.line_type in "empty":
 			current_block["lines"].append(line)
+			
 	return blocks
 
 func split_on_conditionals(parent, block, start):

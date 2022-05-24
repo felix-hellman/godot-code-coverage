@@ -10,6 +10,8 @@ func t4():
 		var d = 7
 	return a
 	
+	
+	
 func t5():
 	var a = 1
 	while a < 100:

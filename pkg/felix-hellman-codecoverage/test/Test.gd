@@ -5,7 +5,7 @@ var factory : TestReportFactory = TestReportFactory.new()
 func _ready():
 	add_child(factory)
 	factory.enable_debug_log = false
-	can_generate_report_test()
+	#can_generate_report_test()
 	factory.enable_debug_log = true
 	can_parse_loops()
 	factory.on_complete()

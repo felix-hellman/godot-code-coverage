@@ -74,7 +74,10 @@ func register_method(method):
 
 func register_blocks(node):
 	var start = node["lines"].front().line_index
-	var end = node["lines"].back().line_index
+	var end = node["lines"].front().line_index
+	for line in node["lines"]:
+		if not "empty" == line.line_type:
+			end = line.line_index
 	var id = _get_and_increment_count()
 	var children_ids = []
 	for child in node["children"]:
@@ -121,6 +124,10 @@ func _evaluate_requirement(node, id ,children_ids):
 		"if":
 			return children_ids
 		"match":
+			return children_ids
+		"for":
+			return children_ids
+		"while":
 			return children_ids
 		_:
 			return [id]
