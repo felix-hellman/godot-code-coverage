@@ -50,6 +50,10 @@ func block_into_lines(block):
 				lines.append(front.line)
 			"if":
 				lines.append(front.line)
+			"for":
+				lines.append(front.line)
+			"while":
+				lines.append(front.line)
 			_:
 				var visited_line = ""
 				for x in front.indent:

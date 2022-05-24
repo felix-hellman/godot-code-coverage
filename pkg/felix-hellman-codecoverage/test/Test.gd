@@ -4,7 +4,10 @@ var factory : TestReportFactory = TestReportFactory.new()
 
 func _ready():
 	add_child(factory)
+	factory.enable_debug_log = false
 	can_generate_report_test()
+	factory.enable_debug_log = true
+	can_parse_loops()
 	factory.on_complete()
 	
 func can_generate_report_test():
@@ -30,5 +33,7 @@ func can_generate_report_test():
 	for index in expected_to_be_covered_after_resume:
 		assert(method_t[index] == "1/1")
 
-
-
+func can_parse_loops():
+	var to_cover = load("res://pkg/felix-hellman-codecoverage/test/LoopsToCover.gd").new()
+	add_child(to_cover)
+	factory.inject_object(to_cover)

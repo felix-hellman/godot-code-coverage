@@ -5,10 +5,10 @@ class_name LineFactory, "res://pkg/felix-hellman-codecoverage/src/LineFactory.gd
 var regex = RegEx.new()
 var func_regex = RegEx.new()
 
-var types = ["func", "if", "else", "yield", "return", "match", "for"]
+var types = ["func", "if", "else", "yield", "return", "match", "for", "while"]
 
 func _ready():
-	regex.compile("^(?<indent>\t*)((?<type>(if|else|match|func|for)).*:)*.*$")
+	regex.compile("^(?<indent>\t*)((?<type>(if|else|match|func|for|while)).*:)*.*$")
 	func_regex.compile("^func (?<functionName>.*)\\(.*$")
 
 func as_line(l : String, index : int) -> SourceLine:

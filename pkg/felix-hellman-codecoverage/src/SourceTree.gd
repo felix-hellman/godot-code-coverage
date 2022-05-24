@@ -112,7 +112,7 @@ func find_root_blocks(lines):
 func split_on_conditionals(parent, block, start):
 	var indent = block["lines"][start].indent
 	var index = start
-	var conditional_types = ["if", "match"]
+	var conditional_types = ["if", "match", "for", "while"]
 	while index < len(block["lines"]):
 		var l = block["lines"][index]
 		var line : SourceLine = l
