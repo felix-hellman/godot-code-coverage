@@ -92,7 +92,7 @@ func t3(conditional: bool):
 
 ### AST
 
-When parsed a tree structure of the file is created, this is to identify branching code which helps conditional statements to know what children needs to be visited for it self to be counted as visited on every branch. See the block containing row "11" below, it needs to have the block containing both row "12 13" and "15 16" to get full coverage
+When parsed, a tree structure of the file is created. This is to identify branching code which helps conditional statements to know what children needs to be visited for it self to be counted as visited on every branch. See the block containing row "11" below, it needs the blocks containing both row "12 13" and "15 16" to be visited in order to get full coverage
 ```mermaid
 graph TD;
   0("res://test/CodeToCover.gd")
@@ -145,8 +145,8 @@ graph TD;
 ```
 
 ### Instrumentation
-After creating a tree out of the source the code will be instrumented by adding emit_signal lines with a block index that corresponds to that block.
-This object will then be connected to a report object that corresponds to that source file, so that other objects of the same source file will get reported back to the same statistics.
+After creating a tree out of the source it is time for the code to be instrumented. This is done by adding emit_signal lines with a block index that corresponds to that block.
+This object will then be connected to a report object that corresponds to that source file, if multiple objects of the same source is instrumented they will all be connected to the same report
 
 <details><summary>CodeToCover.gd (Instrumented)</summary>
 <p>
