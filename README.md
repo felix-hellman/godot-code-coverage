@@ -11,6 +11,10 @@ gop add gop add --dependency=felix-hellman/codecoverage --version=0.0.3
 gop install
 ```
 
+
+### Manually
+Clone this repo and copy paste the pkg folder into your project
+
 ## How to use
 
 Initiate the autoinject node that instruments your objects
