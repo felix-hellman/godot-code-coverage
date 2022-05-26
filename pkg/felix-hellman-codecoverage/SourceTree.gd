@@ -7,7 +7,7 @@ var factory : LineFactory = LineFactory.new()
 func _ready():
 	factory._ready()
 
-func parse(source, path):
+func parse(source):
 	var lines = parse_line_types(source)
 	var r = find_root_blocks(lines)
 	var methods = split_on_methods(r)
@@ -33,7 +33,7 @@ func parse(source, path):
 	for line in lines:
 		if not line in used_lines and not "func " in line.line:
 			unused_lines.append(line)
-	return {"methods":method_blocks, "file":path, "unused_lines": unused_lines}
+	return {"methods":method_blocks, "file":"path", "unused_lines": unused_lines}
 	
 func list_used_lines(node):
 	var lines = []

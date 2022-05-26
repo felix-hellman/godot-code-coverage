@@ -6,22 +6,30 @@ var coverage : SourceTree = SourceTree.new()
 
 var enable_debug_log : bool = false
 
-var reports = []
+#var reports = []
+var reports = {}
 
 func _ready():
 	coverage._ready()
 
+func _get_report(object):
+	var path = object.get_script().get_path()
+	var source = object.get_script().source_code
+	var tree = coverage.parse(source)
+	if enable_debug_log:
+		coverage.__print_file_tree(tree["methods"], path)
+	if path in reports:
+		return reports[path]
+	var report = load("res://pkg/felix-hellman-codecoverage/Report.gd").new()
+	report.register(tree, path)
+	add_child(report)
+	reports[path] = report
+	return report
+
 func inject_object(object : Node):
 	if object.get_script() == null:
 		return object
-	var source = object.get_script().source_code
-	var tree = coverage.parse(source, "name")
-	if enable_debug_log:
-		coverage.__print_file_tree(tree["methods"], object.get_script().get_path())
-	var report = load("res://pkg/felix-hellman-codecoverage/Report.gd").new()
-	report.register(tree, object.get_script().get_path())
-	add_child(report)
-	reports.append(report)
+	var report = _get_report(object)
 	var target = modify_impl(object, report.get_source())
 	target.connect("register_visited", report, "register_visited")
 	return target
@@ -49,5 +57,5 @@ func on_complete():
 func get_report():
 	var output = {"coverage": {}}
 	for report in reports:
-		output["coverage"][report.file_name] = report.report_to_dict()
+		output["coverage"][reports[report].file_name] = reports[report].report_to_dict()
 	return output

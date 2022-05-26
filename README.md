@@ -7,7 +7,7 @@ Adds code coverage reports to godot
 ### Using gop
 ```bash
 gop init
-gop add gop add --dependency=felix-hellman/codecoverage --version=0.0.3
+gop add gop add --dependency=felix-hellman/codecoverage --version=0.0.4
 gop install
 ```
 
