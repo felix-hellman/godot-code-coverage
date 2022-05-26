@@ -1,6 +1,6 @@
 extends Node
 
-class_name SourceLine, "res://pkg/felix-hellman-codecoverage/src/SourceLine.gd"
+class_name SourceLine, "res://pkg/felix-hellman-codecoverage/SourceLine.gd"
 
 var line : String
 var line_type 

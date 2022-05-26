@@ -1,6 +1,6 @@
 extends Node
 
-class_name TestReportFactory, "res://pkg/felix-hellman-codecoverage/src/TestReportFactory.gd"
+class_name TestReportFactory, "res://pkg/felix-hellman-codecoverage/TestReportFactory.gd"
 
 var coverage : SourceTree = SourceTree.new()
 
@@ -16,7 +16,7 @@ func inject_object(object : Node):
 	var tree = coverage.parse(source, "name")
 	if enable_debug_log:
 		coverage.__print_file_tree(tree["methods"], object.get_script().get_path())
-	var report = load("res://pkg/felix-hellman-codecoverage/src/Report.gd").new()
+	var report = load("res://pkg/felix-hellman-codecoverage/Report.gd").new()
 	report.register(tree, object.get_script().get_path())
 	add_child(report)
 	reports.append(report)

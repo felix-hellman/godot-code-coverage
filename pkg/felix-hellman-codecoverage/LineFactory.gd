@@ -1,6 +1,6 @@
 extends Node
 
-class_name LineFactory, "res://pkg/felix-hellman-codecoverage/src/LineFactory.gd"
+class_name LineFactory, "res://pkg/felix-hellman-codecoverage/LineFactory.gd"
 
 var regex = RegEx.new()
 var func_regex = RegEx.new()

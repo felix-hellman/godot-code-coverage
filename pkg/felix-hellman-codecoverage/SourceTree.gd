@@ -1,6 +1,6 @@
 extends Node2D
 
-class_name SourceTree, "res://pkg/felix-hellman-codecoverage/src/SourceTree.gd"
+class_name SourceTree, "res://pkg/felix-hellman-codecoverage/SourceTree.gd"
 
 var factory : LineFactory = LineFactory.new()
 
