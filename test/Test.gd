@@ -1,14 +1,13 @@
 extends Node2D
 
-var factory : TestReportFactory = TestReportFactory.new()
+var auto_inject
 
 func _ready():
-	add_child(factory)
-	factory.enable_debug_log = false
-	#can_generate_report_test()
-	factory.enable_debug_log = true
+	auto_inject = load("res://pkg/felix-hellman-codecoverage/AutoInject.gd").new()
+	add_child(auto_inject)
+	can_generate_report_test()
 	can_parse_loops()
-	factory.on_complete()
+	
 	
 func can_generate_report_test():
 	var expected_partially_covered_lines = [11]
@@ -16,9 +15,8 @@ func can_generate_report_test():
 	var expected_to_be_covered_after_resume = [19,20,21]
 	var to_cover = load("res://test/CodeToCover.gd").new()
 	add_child(to_cover)
-	factory.inject_object(to_cover)
 	var f = to_cover.t(true)
-	var report = factory.get_report()
+	var report = auto_inject.factory.get_report()
 	var method_t = report["coverage"]["res://test/CodeToCover.gd"]["t"]
 	assert(method_t[11] == "1/2")
 	for index in expected_partially_covered_lines:
@@ -28,7 +26,7 @@ func can_generate_report_test():
 	for index in expected_to_be_covered_after_resume:
 		assert(method_t[index] == "0/1")
 	f.resume()
-	report = factory.get_report()
+	report = auto_inject.factory.get_report()
 	method_t = report["coverage"]["res://test/CodeToCover.gd"]["t"]
 	for index in expected_to_be_covered_after_resume:
 		assert(method_t[index] == "1/1")
@@ -36,4 +34,5 @@ func can_generate_report_test():
 func can_parse_loops():
 	var to_cover = load("res://test/LoopsToCover.gd").new()
 	add_child(to_cover)
-	factory.inject_object(to_cover)
+	to_cover.t4()
+	to_cover.t5()

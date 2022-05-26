@@ -2,6 +2,6 @@ project:
   package:
     name: codecoverage
     author: felix-hellman
-    version: 0.0.2
+    version: 0.0.3
   repository:
   - path: https://gop.shrimpray.com

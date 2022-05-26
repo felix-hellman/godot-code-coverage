@@ -12,6 +12,8 @@ func _ready():
 	coverage._ready()
 
 func inject_object(object : Node):
+	if object.get_script() == null:
+		return object
 	var source = object.get_script().source_code
 	var tree = coverage.parse(source, "name")
 	if enable_debug_log:
@@ -35,10 +37,14 @@ func modify_impl(obj, source):
 
 func on_complete():
 	var output = get_report()
+	for k in output["coverage"]:
+		print("Found report for " + k)
 	var file = File.new()
 	file.open("user://coverage_report.json", File.WRITE)
 	file.store_string(to_json(output))
+	print("Report saved at : " + file.get_path_absolute())
 	file.close()
+	
 
 func get_report():
 	var output = {"coverage": {}}

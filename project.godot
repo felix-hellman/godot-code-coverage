@@ -12,34 +12,34 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "CTC",
 "language": "GDScript",
-"path": "res://pkg/felix-hellman-codecoverage/test/CodeToCover.gd"
+"path": "res://test/CodeToCover.gd"
 }, {
 "base": "Node",
 "class": "LineFactory",
 "language": "GDScript",
-"path": "res://pkg/felix-hellman-codecoverage/src/LineFactory.gd"
+"path": "res://pkg/felix-hellman-codecoverage/LineFactory.gd"
 }, {
 "base": "Node",
 "class": "SourceLine",
 "language": "GDScript",
-"path": "res://pkg/felix-hellman-codecoverage/src/SourceLine.gd"
+"path": "res://pkg/felix-hellman-codecoverage/SourceLine.gd"
 }, {
 "base": "Node2D",
 "class": "SourceTree",
 "language": "GDScript",
-"path": "res://pkg/felix-hellman-codecoverage/src/SourceTree.gd"
+"path": "res://pkg/felix-hellman-codecoverage/SourceTree.gd"
 }, {
 "base": "Node",
 "class": "TestReportFactory",
 "language": "GDScript",
-"path": "res://pkg/felix-hellman-codecoverage/src/TestReportFactory.gd"
+"path": "res://pkg/felix-hellman-codecoverage/TestReportFactory.gd"
 } ]
 _global_script_class_icons={
-"CTC": "res://pkg/felix-hellman-codecoverage/test/CodeToCover.gd",
-"LineFactory": "res://pkg/felix-hellman-codecoverage/src/LineFactory.gd",
-"SourceLine": "res://pkg/felix-hellman-codecoverage/src/SourceLine.gd",
-"SourceTree": "res://pkg/felix-hellman-codecoverage/src/SourceTree.gd",
-"TestReportFactory": "res://pkg/felix-hellman-codecoverage/src/TestReportFactory.gd"
+"CTC": "res://test/CodeToCover.gd",
+"LineFactory": "res://pkg/felix-hellman-codecoverage/LineFactory.gd",
+"SourceLine": "res://pkg/felix-hellman-codecoverage/SourceLine.gd",
+"SourceTree": "res://pkg/felix-hellman-codecoverage/SourceTree.gd",
+"TestReportFactory": "res://pkg/felix-hellman-codecoverage/TestReportFactory.gd"
 }
 
 [application]

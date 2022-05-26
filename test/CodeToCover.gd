@@ -1,6 +1,6 @@
 extends Node
 
-class_name CTC, "res://pkg/felix-hellman-codecoverage/test/CodeToCover.gd"
+class_name CTC, "res://test/CodeToCover.gd"
 
 var x = 123
 
