@@ -34,12 +34,31 @@ func get_source():
 func block_into_lines(block):
 	if "function_line" in block:
 			lines.append(block["function_line"])
-	if "hidden" in block["node"]:
-			lines.append(block["node"]["hidden"].line)
 	if len(block["node"]["lines"]) > 0:
 		var front = block["node"]["lines"].front()
 		match front.line_type:
 			"match-pattern":
+				lines.append(front.line)
+				var visited_line = ""
+				for x in front.indent + 1:
+					visited_line = visited_line + "\t"
+				visited_line = visited_line + "emit_signal(\"register_visited\","+str(block["id"]) + ")"
+				lines.append(visited_line)
+			"else":
+				lines.append(front.line)
+				var visited_line = ""
+				for x in front.indent + 1:
+					visited_line = visited_line + "\t"
+				visited_line = visited_line + "emit_signal(\"register_visited\","+str(block["id"]) + ")"
+				lines.append(visited_line)
+			"yield":
+				lines.append(front.line)
+				var visited_line = ""
+				for x in front.indent:
+					visited_line = visited_line + "\t"
+				visited_line = visited_line + "emit_signal(\"register_visited\","+str(block["id"]) + ")"
+				lines.append(visited_line)
+			"elif":
 				lines.append(front.line)
 				var visited_line = ""
 				for x in front.indent + 1:
@@ -52,6 +71,11 @@ func block_into_lines(block):
 				lines.append(front.line)
 			"for":
 				lines.append(front.line)
+				var visited_line = ""
+				for x in front.indent + 1:
+					visited_line = visited_line + "\t"
+				visited_line = visited_line + "emit_signal(\"register_visited\","+str(block["id"]) + ")"
+				lines.append(visited_line)
 			"while":
 				lines.append(front.line)
 			_:
@@ -132,10 +156,6 @@ func _evaluate_requirement(node, id ,children_ids):
 		"if":
 			return children_ids
 		"match":
-			return children_ids
-		"for":
-			return children_ids
-		"while":
 			return children_ids
 		_:
 			return [id]

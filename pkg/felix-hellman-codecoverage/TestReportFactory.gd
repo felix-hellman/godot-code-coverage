@@ -6,7 +6,6 @@ var coverage : SourceTree = SourceTree.new()
 
 var enable_debug_log : bool = false
 
-#var reports = []
 var reports = {}
 
 func _ready():

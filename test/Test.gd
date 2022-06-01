@@ -5,8 +5,9 @@ var auto_inject
 func _ready():
 	auto_inject = load("res://pkg/felix-hellman-codecoverage/AutoInject.gd").new()
 	add_child(auto_inject)
-	can_generate_report_test()
-	can_parse_loops()
+	#can_generate_report_test()
+	#can_parse_loops()
+	can_parse_fizzbuzz()
 	
 	
 func can_generate_report_test():
@@ -36,3 +37,12 @@ func can_parse_loops():
 	add_child(to_cover)
 	to_cover.t4()
 	to_cover.t5()
+
+func can_parse_fizzbuzz():
+	var to_cover = load("res://test/ConditionalLoops.gd").new()
+	add_child(to_cover)
+	to_cover.complex()
+	var report = auto_inject.factory.get_report()
+	var method_complex = report["coverage"]["res://test/ConditionalLoops.gd"]["complex"]
+	assert(method_complex[5] == "1/1")
+	assert(method_complex[6] == "3/3")

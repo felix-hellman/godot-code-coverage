@@ -125,7 +125,7 @@ func split_on_conditionals(parent, block, start):
 			append_child_to_block(conditional_block, next_block)
 			index = split_on_conditionals(next_block, block, index+1)
 			index = index  - 1
-		elif "else" in line.line_type:
+		elif line.line_type in ["else", "elif", "match-pattern", "yield"]:
 			parent["lines"].append(line)
 		elif line.indent < indent:
 			return index
@@ -143,34 +143,23 @@ func split_on_branches(parent):
 	for k in parent["children"]:
 		var child = parent["children"][k]
 		var split = split_block(child)
-		for s in split:
-			append_child_to_block(parent, s)
-		if len(split) > 0:
+		if len(split) > 1:
+			for s in split:
+				append_child_to_block(parent, s)
 			parent["children"].erase(k)
 			
+			
 func split_block(block):
-	var split_types = ["else", "yield", "elif"]
 	var index = 0
 	var blocks = []
+	var current_block = new_block()
+	blocks.append(current_block)
 	if len(block["lines"]) > 0:
-		if "match-pattern" in block["lines"].front().line_type:
-			var current_block = null
-			for line in block["lines"]:
-				if "match-pattern" in line.line_type:
-					current_block = new_block()
-					blocks.append(current_block)
-				current_block["lines"].append(line)
-		else:
-			for line in block["lines"]:
-				if line.line_type in split_types:
-					var left = new_block()
-					left["lines"] = block["lines"].slice(0, index-1, 1, true)
-					var right = new_block()
-					right["lines"] = block["lines"].slice(index+1, len(block["lines"]), 1, true)
-					right["hidden"] = line
-					blocks.append(left)
-					blocks.append(right)
-				index = index + 1
+		for line in block["lines"]:
+			if line.line_type in ["else", "yield", "elif", "match-pattern"]:
+				current_block = new_block()
+				blocks.append(current_block)
+			current_block["lines"].append(line)
 		return blocks.duplicate(true)
 	return blocks
 	
