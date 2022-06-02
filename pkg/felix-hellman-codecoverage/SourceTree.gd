@@ -91,7 +91,7 @@ func split_on_methods(node):
 		var b = new_block()
 		b["lines"] = node[child]["lines"]
 		b["function_name"] = method_name
-		b["function_line"] = line.line
+		b["function_line"] = line.line.replace("static ", "")
 		methods.append(b)
 	return methods
 
@@ -181,7 +181,8 @@ func parse_line_types(source):
 	for line in source.split("\n"):
 		var r = factory.as_line(line, index)
 		if r != null:
-			result.append(r)
+			if len(line) > 0 and line[0] != "#":
+				result.append(r)
 		index = index + 1
 	return result
 

@@ -4,19 +4,21 @@ class_name LineFactory, "res://pkg/felix-hellman-codecoverage/LineFactory.gd"
 
 var regex = RegEx.new()
 var func_regex = RegEx.new()
+var class_name_regex = RegEx.new()
 
 var types = ["func", "if", "else", "yield", "return", "match", "for", "while", "empty", "elif"]
 
 func _ready():
-	regex.compile("^(?<indent>\t*)((?<type>(if|else|match|func|for|while|elif)).*:)*.*$")
-	func_regex.compile("^func (?<functionName>.*)\\(.*$")
+	regex.compile("^(?<indent>\t*)(static ){0,1}((?<type>(if|else|match|func|for|while|elif)).*:)*.*$")
+	func_regex.compile("^(static ){0,1}func (?<functionName>.*)\\(.*$")
+	class_name_regex.compile("^class_name .*, \"(.*)\"$")
 
 func as_line(l : String, index : int) -> SourceLine:
 	var result = regex.search(l)
 	if result:
 		var indent = len(result.get_string("indent"))
 		var line = l
-		if "class_name" in line:
+		if _is_class_name(line):
 			line = ""
 		var type = result.get_string("type")
 		var to_return : SourceLine = SourceLine.new()
@@ -45,3 +47,9 @@ func extract_function_name(line : SourceLine) -> String:
 	if result:
 		return result.get_string("functionName")
 	return ""
+
+func _is_class_name(line: String) -> bool:
+	var result = class_name_regex.search(line)
+	if result:
+		return true
+	return false
