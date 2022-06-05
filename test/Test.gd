@@ -7,7 +7,8 @@ func _ready():
 	add_child(auto_inject)
 	#can_generate_report_test()
 	#can_parse_loops()
-	can_parse_fizzbuzz()
+	#can_parse_fizzbuzz()
+	can_parse_multi_line()
 	
 	
 func can_generate_report_test():
@@ -46,3 +47,8 @@ func can_parse_fizzbuzz():
 	var method_complex = report["coverage"]["res://test/ConditionalLoops.gd"]["complex"]
 	assert(method_complex[5] == "1/1")
 	assert(method_complex[6] == "3/3")
+
+func can_parse_multi_line():
+	var to_cover = load("res://test/MultiLineToCover.gd").new()
+	add_child(to_cover)
+	to_cover.multi_line_conditional(10, 20, 30)

@@ -4,7 +4,7 @@ class_name TestReportFactory, "res://pkg/felix-hellman-codecoverage/TestReportFa
 
 var coverage : SourceTree = SourceTree.new()
 
-var enable_debug_log : bool = false
+var enable_debug_log : bool = true
 
 var reports = {}
 

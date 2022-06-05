@@ -177,12 +177,22 @@ func new_block():
 
 func parse_line_types(source):
 	var result = []
+	var multi_line_types = ["func", "if", "elif"]
+	var multi_lines : PoolStringArray = []
 	var index = 1
 	for line in source.split("\n"):
 		var r = factory.as_line(line, index)
 		if r != null:
+			if r.line_type in multi_line_types and not r.has_end:
+				multi_lines.append(line)
 			if len(line) > 0 and line[0] != "#":
-				result.append(r)
+				if len(multi_lines) > 0:
+					multi_lines.append(line)
+					if r.has_end:
+						result.append(factory.merge(multi_lines, index))
+						multi_lines = []
+				else:
+					result.append(r)
 		index = index + 1
 	return result
 

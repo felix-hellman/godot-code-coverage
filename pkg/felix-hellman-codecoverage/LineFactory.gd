@@ -9,8 +9,8 @@ var class_name_regex = RegEx.new()
 var types = ["func", "if", "else", "yield", "return", "match", "for", "while", "empty", "elif"]
 
 func _ready():
-	regex.compile("^(?<indent>\t*)(static ){0,1}((?<type>(if|else|match|func|for|while|elif)).*:)*.*$")
-	func_regex.compile("^(static ){0,1}func (?<functionName>.*)\\(.*$")
+	regex.compile("^(?<indent>\t*)(static ){0,1}((?<type>(if|else|match|func|for|while|elif)).*)*.*")
+	func_regex.compile("^(static ){0,1}func (?<functionName>.*)\\(.*")
 	class_name_regex.compile("^class_name .*, \"(.*)\"$")
 
 func as_line(l : String, index : int) -> SourceLine:
@@ -26,8 +26,15 @@ func as_line(l : String, index : int) -> SourceLine:
 		to_return.line_type = evaluate_line_type(line, type)
 		to_return.indent = indent
 		to_return.line_index = index
+		to_return.has_end = ":" in line
 		return to_return
 	return null
+
+func merge(lines: PoolStringArray, index) -> SourceLine:
+	var line = lines[0]
+	for l in range(2 ,len(lines)):
+		line = line + " " + lines[l].replace("\n", "").replace("\t", "")
+	return as_line(line, index - (len(lines) - 1))
 
 func evaluate_line_type(line, type) -> String:
 	var index = types.find(type)
